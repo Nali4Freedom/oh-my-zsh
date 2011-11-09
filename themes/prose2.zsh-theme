@@ -16,14 +16,14 @@ function box_name {
 
 function prompt_char {
     git branch >/dev/null 2>/dev/null && echo '±' && return
-    hg root >/dev/null 2>/dev/null && echo '☿' && return
+    hg root >/dev/null 2>/dev/null && echo '»' && return
     echo '→'
 }
 
 
 
 PROMPT='
-%n@$(box_name) in %{$fg[green]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)
+%n@$(box_name) in %{$fg[green]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)$(hg_prompt_info)
 $(virtualenv_info)$(prompt_char) '
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[magenta]%}"
