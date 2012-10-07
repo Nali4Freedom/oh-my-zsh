@@ -83,6 +83,20 @@ prompt_git() {
   fi
 }
 
+# Hg: branch, dirty status
+prompt_hg() {
+  local ref dirty
+  if $(hg status >/dev/null 2>&1); then
+    if [[ -n $(hg status 2> /dev/null) ]]; then
+      dirty='»'
+      prompt_segment yellow black
+    else
+      prompt_segment green black
+    fi
+    echo -n "⭠ $(hg branch)$dirty"
+  fi
+}
+
 # Dir: current working directory
 prompt_dir() {
   prompt_segment blue black '%~'
@@ -109,6 +123,7 @@ build_prompt() {
   prompt_context
   prompt_dir
   prompt_git
+  prompt_hg
   prompt_end
 }
 
