@@ -85,15 +85,13 @@ prompt_git() {
 
 # Hg: branch, dirty status
 prompt_hg() {
-  local ref dirty
   if $(hg status >/dev/null 2>&1); then
     if [[ -n $(hg status 2> /dev/null) ]]; then
-      dirty='»'
       prompt_segment yellow black
     else
       prompt_segment green black
     fi
-    echo -n "⭠ $(hg branch)$dirty"
+    echo -n "☿ $(hg branch)"
   fi
 }
 
