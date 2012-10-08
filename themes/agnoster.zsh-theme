@@ -85,13 +85,17 @@ prompt_git() {
 
 # Hg: branch, dirty status
 prompt_hg() {
+  local update
   if $(hg status >/dev/null 2>&1); then
     if [[ -n $(hg status 2> /dev/null) ]]; then
       prompt_segment yellow black
     else
       prompt_segment green black
     fi
-    echo -n "☿ $(hg branch)"
+    if ! (hg summary | grep "update: (current)">/dev/null 2>&1); then
+      update="%{%F{red}%}^"
+    fi
+    echo -n "☿ $(hg branch)$update"
   fi
 }
 
